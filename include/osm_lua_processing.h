@@ -94,6 +94,9 @@ public:
 	// Get an OSM tag for a given key (or return empty string if none)
 	std::string Find(const std::string& key) const;
 
+	// Get the first OSM tag with the given value (or return empty string if none)
+	std::string FindByValue(const std::string& value) const;
+
 	// ----	Spatial queries called from Lua
 
 	// Find intersecting shapefile layer

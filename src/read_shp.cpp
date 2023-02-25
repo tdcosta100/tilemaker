@@ -42,6 +42,9 @@ void addShapefileAttributes(
 		kaguya::LuaTable in_table = osmLuaProcessing.newTable();
 		for (auto it : columnMap) {
 			int pos = it.first;
+
+			if(DBFIsAttributeNULL(dbf, recordNum, pos)) continue;
+			
 			string key = it.second;
 			switch (columnTypeMap[pos]) {
 				case 1:  in_table[key] = DBFReadIntegerAttribute(dbf, recordNum, pos); break;

@@ -40,6 +40,7 @@ OsmLuaProcessing::OsmLuaProcessing(
 		.addFunction("Id", &OsmLuaProcessing::Id)
 		.addFunction("Holds", &OsmLuaProcessing::Holds)
 		.addFunction("Find", &OsmLuaProcessing::Find)
+		.addFunction("FindByValue", &OsmLuaProcessing::FindByValue)
 		.addFunction("FindIntersecting", &OsmLuaProcessing::FindIntersecting)
 		.addFunction("Intersects", &OsmLuaProcessing::Intersects)
 		.addFunction("FindCovering", &OsmLuaProcessing::FindCovering)
@@ -121,6 +122,15 @@ string OsmLuaProcessing::Find(const string& key) const {
 	auto it = currentTags.find(key);
 	if(it == currentTags.end()) return "";
 	return it->second;
+}
+
+// Get the first OSM tag with the given value (or return empty string if none)
+string OsmLuaProcessing::FindByValue(const string& value) const {
+	for(auto it = currentTags.begin(); it != currentTags.end(); it++) {
+		if(it->second == value) return it->first;
+	}
+
+	return "";
 }
 
 // ----	Spatial queries called from Lua
